@@ -4,17 +4,21 @@ Displays an info screen with the next Wiener Linien public transport connections
 
 It includes a small server written in Node.js that pulls the needed data from the [Wiener Linien API](https://www.data.gv.at/katalog/dataset/add66f20-d033-4eee-b9a0-47019828e698), caches it and serves it together with an HTML5 frontend. At Metalab, [all of this runs](https://metalab.at/wiki/%C3%96ffimonitor) on a Raspberry Pi, which also displays the frontend on a spare monitor (check out ```util``` for reproduction).
 
+## 2019
+Thanks to an [Update of the API](https://www.slideshare.net/DigitalesWien/datendrehscheibe-der-wiener-linien), there is no need for API-Key and you get data 70 minutes into the future.
+
 ![Screenshot of Öffimonitor running at Metalab](https://metalab.at/wiki/images/b/b0/Oeffimonitor_screenshot.png)
 
 ## Usage
 
-1.  Run ```npm install``` to fetch dependencies.
-2.  Move ```server/settings.example.js``` to ```server/settings.js``` and
-  1. Add your API key (mandatory, [get one here](http://www.wienerlinien.at/eportal3/ep/channelView.do?pageTypeId=66528&channelId=-48664)).
-  2. Most likely you will also want to change the ```api_ids``` to the RBL numbers that correspond to the stops you want to include ([find them here](https://till.mabe.at/rbl/)) and change the ```location_coordinate``` to the location of your Öffimonitor.
-  3. Change additional settings (optional).
-3.  Run ```npm start```
-4.  Open Öffimonitor in a browser of your choice.
+1. Run ```npm install``` to fetch dependencies.
+2. Move ```server/settings.example.js``` to ```server/settings.js``` and
+3. Most likely you will also want to change the ```api_ids``` to the RBL numbers that correspond to the stops you want to include ([find them here](https://till.mabe.at/rbl/)) and change the ```location_coordinate``` to the location of your Öffimonitor.
+4. Change additional settings (optional).  Get a API Key at [mapbox.com](https://www.mapbox.com/) for routing and add it in ```server/httpd.js```
+5. Run ```npm start```
+6. Open Öffimonitor in a browser of your choice.
+
+If you use the routing feature and want to change the "walkDuration", you have to change it in ```server/httpd.js``` and ```site/update.js```
 
 ## API
 

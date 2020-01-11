@@ -1,5 +1,6 @@
 const express = require('express')
 const http = require('http')
+const https = require('https')
 const url = require('url')
 const apicache = require('apicache')
 const settings = require(__dirname + '/settings.js');
@@ -29,7 +30,7 @@ const errorHandler = (error, cb) => {
 }
 
 const getData = (cb) => {
-	http.get(settings.api_url, (response) => {
+	https.get(settings.api_url, (response) => {
 		let data = '';
 		response.on('data', (chunk) => data += chunk);
 		response.on('end', () => {
@@ -62,11 +63,12 @@ const getOSRM = (coordinates) => {
 	console.log('OSRM: new request for', coordinates)
 	const osrm_url = url.parse(settings.osrm_api_url +
 		coordinates[0] + ',' +
-		coordinates[1] + '?overview=false');
+		// add your mapbox api key
+		coordinates[1] + '?access_token=pk.eyXXXXXXXXXXX');
 
 	let duration;
 
-	http.get({
+	https.get({
 		protocol: osrm_url.protocol,
 		host: osrm_url.host,
 		path: osrm_url.path,

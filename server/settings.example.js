@@ -1,7 +1,8 @@
-// add your API key here
-const api_key = 'XXXXXXXXXX';
-
 // define all RBLs of stops you want to display
+// now you can also use DIVA IDs to get all lines at one stop
+// https://data.wien.gv.at/csv/wienerlinien-ogd-haltestellen.csv
+// see https://www.slideshare.net/DigitalesWien/datendrehscheibe-der-wiener-linien
+
 const api_ids = [
   "252",    // Rathaus – 2 (Richtung Friedrich-Engels-Platz)
   "269",    // Rathaus – 2 (Richtung Ottakringer Str./Erdbrustgasse)
@@ -23,10 +24,17 @@ const api_ids = [
   "5691",   // Auerspergstraße – N46 (stadtauswärts)
 ];
 
-const api_url = 'http://www.wienerlinien.at/ogd_realtime/monitor' +
+// use this URL if you use RBLs
+const api_url = 'https://www.wienerlinien.at/ogd_realtime/monitor' +
   '?activateTrafficInfo=stoerunglang' +
-  `&sender=${api_key}`+
   '&rbl=' + api_ids.join("&rbl=");
+
+// use this URL if you use DIVAs  
+//  const api_url = 'https://www.wienerlinien.at/ogd_realtime/monitor' +
+//  '?activateTrafficInfo=stoerunglang' +
+// '&DIVA=' + api_ids.join("&DIVA=");
+  
+
 
 // define filters to exclude specific departures from the monitor
 // currently you can exclude lines as a whole or only at certain stops
@@ -48,7 +56,7 @@ const filters = [
 const location_coordinate = '16.3509389,48.2103151'
 
 // define OSRM server for routing to stops. Empty string to disable feature
-const osrm_api_url = 'http://router.project-osrm.org/route/v1/foot/' + location_coordinate + ';'
+const osrm_api_url = 'https://api.mapbox.com/directions/v5/mapbox/walking/' + location_coordinate + ';'
 
 module.exports = {
   'api_url'         : api_url,
